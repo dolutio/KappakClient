@@ -1,0 +1,43 @@
+{
+    "MAIN_CHAT": {
+        "last_received_msg_id": "martun_9",
+        "martun_1": {
+            "text": "HEllow",
+            "sending_time": "16:11:43:0"
+        },
+        "erik_45": {
+            "text": "Hi!",
+            "sending_time": "4:5:5:0"
+        },
+        "narek_872": {
+            "text": "Jan axper jan",
+            "sending_time": "3:3:6:7:7"
+        },
+        "martun_7": {
+            "text": "Ba erb enq havaqvum?",
+            "sending_time": "01:07:2025:15:03"
+        },
+        "martun_8": {
+            "text": "Ha vay, moracel ei \ud83d\ude05",
+            "sending_time": "01:07:2025:15:04"
+        },
+        "martun_9": {
+            "text": "\ud83d\ude01",
+            "sending_time": "04:07:2025:07:14"
+        }
+    },
+    "SCHAT": {
+        "last_received_msg_id": "",
+        "martun_1": {
+            "text": "H",
+            "sending_time": "01:07:2025:15:03"
+        }
+    },
+    "SCHAT1": {
+        "last_received_msg_id": "",
+        "martun_1": {
+            "text": "H",
+            "sending_time": "01:07:2025:15:03"
+        }
+    }
+}

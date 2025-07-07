@@ -1,0 +1,7 @@
+window_width = 800
+window_height = 600
+
+ACCEPT = 0
+ACCOUNT_ALREADY_EXIST = 1
+ACCOUTN_NOT_FOUND = 2
+INCORRECT_PASSWORD = 3

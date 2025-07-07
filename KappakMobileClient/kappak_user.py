@@ -13,7 +13,8 @@ class User:
     need_to_filter_censoreship: bool = True
     signed_up: bool = False
     client: socket.socket
-    not_sended_requests: list
+    client_is_connected: bool = False
+    not_sended_requests: list = list()
 
     def __init__(self, name: str = '', age: int = 0, the_last_sended_message_id: int = 0, need_to_filter_censoreship=True):
         self.username = name
@@ -43,16 +44,21 @@ class User:
     def try_to_connect(self):
         try:
             self.client.connect((HOST, PORT))
+            self.client_is_connected = True
         
         except OSError:
-            ... # Server do not found
+            self.client_is_connected = False # Server do not found
     
     def send_req(self, request: str):
-        if self.client:
-            for not_sended_request in self.not_sended_requests:
-                self.client.sendall(not_sended_request)
+        if self.client and self.client_is_connected:
+            try:
+                for not_sended_request in self.not_sended_requests:
+                    self.client.sendall(not_sended_request)
 
-            self.client.sendall(request)
+                self.client.sendall(request)
+            except BrokenPipeError:
+                print("Server closed")
+                self.client_is_connected = False
         
         else:
             self.not_sended_requests.append(request)

@@ -27,6 +27,7 @@ def send_message():
         Global.user.send_req("m " + json.dumps(msg_json))
         Global.chats_data[Global.current_chat_name].update(msg_json[Global.current_chat_name])
 
+        Global.user.the_last_sended_message_id += 1
         Global.message_input_box.text = ''
     
     else:print(Global.message_input_box)

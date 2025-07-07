@@ -20,7 +20,7 @@ class Message:
         self.sending_time = sending_time
         self.message_id = message_id
 
-        if Global.user is not None:
+        if Global.user is not None and Global.user.username in message_id:
             Global.user.the_last_sended_message_id += 1
             print(Global.user.the_last_sended_message_id)
     

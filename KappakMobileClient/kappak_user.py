@@ -2,7 +2,7 @@ import socket
 import threading
 import struct
 
-HOST = ''
+HOST = '192.168.1.8'
 PORT = 8080
 
 class User:
@@ -53,9 +53,9 @@ class User:
         if self.client and self.client_is_connected:
             try:
                 for not_sended_request in self.not_sended_requests:
-                    self.client.sendall(not_sended_request)
+                    self.client.sendall(not_sended_request.encode())
 
-                self.client.sendall(request)
+                self.client.sendall(request.encode())
             except BrokenPipeError:
                 print("Server closed")
                 self.client_is_connected = False

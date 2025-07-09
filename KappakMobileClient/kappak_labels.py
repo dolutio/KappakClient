@@ -2,6 +2,8 @@ from kivy.core.window import Window
 from kivymd.uix.label import MDLabel
 
 from kappak_general_functions import adaptive_size, return_values
+from kivy.metrics import dp
+from kivy.core.window import Window
 
 class KappakLabel(MDLabel):
     font_name = 'DejaVuSans.ttf'
@@ -14,10 +16,10 @@ class MessageLabel(KappakLabel):
 
         self.size_hint = (1, None)
         self.pos_hint = {'x': 0, 'y': 0}
-        self.padding = return_values(adaptive_size(10), 2)
+        self.padding = return_values(dp(10), 2)
         self.valign = 'bottom'
         self.halign = 'auto'
-        self.font_size = 20
+        self.font_size = dp(17)
         self.texture_update()
 
 class MessageTimeLabel(KappakLabel):
@@ -25,7 +27,25 @@ class MessageTimeLabel(KappakLabel):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        self.size_hint = (1, 0.1)
+        self.size_hint = (0.5, 0.1)
         self.pos_hint = {'x': 0.75, 'y': 0}
-        self.padding = return_values(adaptive_size(0), 2)
-        self.font_size = 15
+        self.padding = return_values(dp(10), 2)
+        self.font_size = dp(15)
+
+        Window.bind(size=self.set_pos_hint_for_phones)
+
+    def set_pos_hint_for_phones(self, instance, size):
+        if size[0] <= 320:
+            self.pos_hint['x'] = 0.3
+        
+        elif 320 < size[0] <= 335:
+            self.pos_hint['x'] = 0.45
+
+        elif 335 < size[0] <= 521:
+            self.pos_hint['x'] = 0.6
+        
+        elif 521 < size[0] <= 578:
+            self.pos_hint['x'] = 0.7
+        
+        else:
+            self.pos_hint['x'] = 0.75

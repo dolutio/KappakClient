@@ -9,11 +9,12 @@ from login_screen import LogInScreen
 from chats_feed_screen import ChatsFeedScreen
 from chat_screen import ChatScreen
 from message_tools import Message
-from kappak_config import ACCEPT, ACCOUNT_ALREADY_EXIST, ACCOUTN_NOT_FOUND, INCORRECT_PASSWORD
+from kappak_config import ACCEPT, ACCOUNT_ALREADY_EXIST, ACCOUNT_NOT_FOUND, INCORRECT_PASSWORD
 
 import Global
 
 from threading import Thread
+import json
 
 class Kappak(MDApp):
     screen_manager: MDScreenManager
@@ -28,6 +29,7 @@ class Kappak(MDApp):
         self.chats_feed_screen = ChatsFeedScreen()
 
         Window.bind(on_keyboard=self.on_key_down)
+        Thread(target=self.socket_process, daemon=True)
 
     def build(self):
         self.screen_manager.add_widget(self.login_screen)
@@ -59,28 +61,46 @@ class Kappak(MDApp):
         Global.save_chats_data()
 
     def socket_process(self):
-        if not Global.user.client:
+        if not Global.user.client_is_connected:
             Global.user.try_to_connect()
 
             return
-
-    def handle_num_codes(self):
+        
+        self.handle_reply()
+        
+    def handle_reply(self):
         reply = Global.user.decode_reply()
 
+        if type(reply) is int:
+            self.handle_num_codes()
+
+    def handle_num_codes(self, reply: int):
         if self.screen_manager.current == 'SignUpScreen':
             if reply == ACCOUNT_ALREADY_EXIST:
                 self.screen_manager.get_screen('SignUpScreen').account_is_already_notify()
 
+            if reply == ACCEPT:
+                self.screen_manager.get_screen('SignUpScreen').save_account_data()
+
         if self.screen_manager.current == 'LogInScreen':
-            if reply == ACCOUTN_NOT_FOUND:
+            if reply == ACCOUNT_NOT_FOUND:
                 self.screen_manager.get_screen('LogInScreen').account_not_found_notify()
 
             if reply == INCORRECT_PASSWORD:
-                self.screen_manager.get_screen('LogInScreen').incorrect_password_notify
-                
+                self.screen_manager.get_screen('LogInScreen').incorrect_password_notify()
+
+            if reply == ACCEPT:
+                self.screen_manager.get_screen('LogInScreen').save_account_data()
+
+    def send_update_messages_req(self):
+        req_dict = dict()
+
+        for chat_name, chat in Global.chats_data.items():
+            req_dict.update({chat_name, chat['last_received_msg_id']})
+
+        Global.user.send_req(f'u {json.dumps(req_dict)}')         
     
     def update_msgs(self):
-        ...
         chats_json = {"MAIN_CHAT":{"last_received_msg_id": "supermarchok1", "supermarchok1": {"text": "Hellow!", "sending_time": "01:07:2025:15:11"}}}
 
         for chat_name, chat in chats_json.items():

@@ -29,9 +29,10 @@ class ChatScreen(MDScreen):
             Global.message_input_box = self.send_bar.message_input_box
     
     def build(self):
+        self.clear_widgets()
+
         for msg_id, msg in Global.chats_data[self.name].items():
             if msg_id != "last_received_msg_id":
-                print(msg)
                 self.message_show_place.add_message(Message(msg['text'], msg['sending_time'], msg_id))
 
         self.layout.add_widget(self.message_show_place)

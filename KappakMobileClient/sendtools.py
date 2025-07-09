@@ -2,8 +2,11 @@ import Global
 
 from kivymd.uix.button import MDFillRoundFlatButton
 from kivy.uix.textinput import TextInput
+from kivy.core.window import Window
+from kivy.metrics import dp
 
 from message_tools import MessagesShowPlace, Message
+from kappak_crypt import kappak_crypt
 
 import time
 import json
@@ -24,13 +27,25 @@ def send_message():
 
         msg_json = {Global.current_chat_name: {msg_id: {"text": msg_text, "sending_time": sending_time}}}
 
-        Global.user.send_req("m " + json.dumps(msg_json))
         Global.chats_data[Global.current_chat_name].update(msg_json[Global.current_chat_name])
+
+        msg_json[Global.current_chat_name][msg_id]['text'] = kappak_crypt(msg_text)
+        Global.user.send_req("m " + json.dumps(msg_json))
 
         Global.user.the_last_sended_message_id += 1
         Global.message_input_box.text = ''
     
     else:print(Global.message_input_box)
+
+def add_message_in_chats_data(msg_json_s):
+    msg_json = json.loads(msg_json_s)
+
+    chat_name = next(iter(msg_json))
+    msg_id = next(iter(msg_json[chat_name]))
+
+    msg_json[chat_name][msg_id]['text'] = kappak_crypt(msg_json[chat_name][msg_id]['text'], msg_json[chat_name] + msg_json[chat_name][msg_id], enc=False).decode() # decrypt
+
+    Global.chats_data.update(msg_json)
 
 class MessageInputBox(TextInput):
     def __init__(self, **kwargs):
@@ -52,13 +67,20 @@ class SendButton(MDFillRoundFlatButton):
     halign = 'center'
     text_color = (1, 1, 1, 1)
     font_name = 'DejaVuSans.ttf'
-    font_size = 30
+    font_size = dp(30)
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        self.size_hint = (0.05, 1)
-        self.pos_hint = {'x': 0.85, 'y': 0}
+        self.size_hint = (None, 1)
+        self.size = (dp(50), dp(50))
+
+        Window.bind(size=self.set_pos_hint_for_phones)
+
+        self.set_pos_hint_for_phones(None, None) # for first position
+
+    def set_pos_hint_for_phones(self, instance, size):
+        self.pos = (Window.width - dp(100), dp(0))
 
     def on_release(self):
         send_message()

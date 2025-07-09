@@ -38,7 +38,7 @@ def kappak_encrypt(bytes_: bytearray, key_word: str, custom_key_word: str = '', 
     return crypted_bytes
 
 # print(gen_custom_key("_orei849_IIkwskixs9"))
-print(kappak_encrypt(kappak_encrypt("hello".encode(), name, 'TUMO_CH'), name, 'TUMO_CH', False))
+# print(kappak_encrypt(kappak_encrypt("hello".encode(), name, 'TUMO_CH'), name, 'TUMO_CH', False))
 # print(kappak_hash(input(':')))            
 
 class ClientUser:

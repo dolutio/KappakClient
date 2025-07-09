@@ -73,6 +73,11 @@ class LogInScreen(MDScreen):
     
     def incorrect_password_notify(self):
         self.login_password_input_box.error_notify("Password is incorrect")
+    
+    def save_account_data(self):
+        if not Global.user.signed_up:
+            Global.user.username = self.saved_username
+            Global.user.signed_up = True
 
     def go_to_signup_screen(self, button):
         self.manager.current = 'SignUpScreen'

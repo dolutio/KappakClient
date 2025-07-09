@@ -6,6 +6,7 @@ from kivymd.uix.scrollview import MDScrollView
 from kivymd.uix.widget import MDAdaptiveWidget
 
 from kivy.core.window import Window
+from kivy.metrics import dp
 
 from kappak_labels import MessageLabel, MessageTimeLabel
 from kappak_general_functions import return_values, adaptive_size
@@ -44,11 +45,11 @@ class MessageWidget(MDCard):
     OWN_MESSAGE_COLOR = (0.5, 1, 0.5, 1)
     OTHERS_MESSAGE_COLOR = (0, 0.77, 0.77, 1)
 
-    size_hint = (0.3, None)
-    pos_hint = {'x': 0.6, 'y': 1}
+    size_hint = (0.4, None)
+    pos_hint = {'x': 0.5, 'y': 1}
     orientation = 'vertical'
     adaptive_height = True
-    radius = return_values(adaptive_size(25), 4)
+    radius = return_values(dp(15), 4)
     
     def __init__(self, message=Message("HEllo"), **kwargs):
         super().__init__(**kwargs)
@@ -60,11 +61,9 @@ class MessageWidget(MDCard):
         self.set_message_time()
     
     def define_message_type(self): #Own message or Someone else's message
-        if Global.user.username in self.message.message_id:
-            print("Own message", Global.user.username, "uuuuuuuuu",self.message.message_id)
-        else: 
+        if Global.user.username not in self.message.message_id: 
             self.md_bg_color = self.OTHERS_MESSAGE_COLOR #00c5c3 #2079df #4a5ce9 #8620df
-            self.pos_hint = {'x': 0.1, 'y': 1}
+            self.pos_hint = {'x': 0.05, 'y': 1}
     
     def set_message_text(self):
         self.message_label = MessageLabel(text=self.message.text)

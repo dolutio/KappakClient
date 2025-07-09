@@ -15,7 +15,8 @@ class ChatsFeedScreen(MDScreen):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        
+
+        self.md_bg_color = (0.05, 0.08, 0.12, 1)
         self.float_layout = MDFloatLayout()
         self.scroll_view = MDScrollView(size_hint=(1, 1))
         self.box_layout = MDBoxLayout(orientation='vertical', adaptive_height=True, size_hint_y=None, spacing=adaptive_size(10))

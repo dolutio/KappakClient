@@ -14,10 +14,15 @@ class AddChatButton(MDFillRoundFlatButton):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self._round_rad = (1, 1)
+        self.size = self.size[0], self.size[0]
         self.font_size = 60
 
 class ChatsFeedButton(MDRectangleFlatIconButton):
     font_name = 'DejaVuSans.ttf'
+    md_bg_color = (0.05, 0.08, 0.12, 1)
+    line_color = (0.3, 1, 0.3, 1)
+    icon_color = (0.1, 1, 0.1, 0)
+    text_color = (0.1, 1, 0.1, 1)
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

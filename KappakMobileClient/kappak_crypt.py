@@ -21,7 +21,7 @@ def kappak_hash(word: str):
     
     return hashlib.sha256(word.encode())
 
-def kappak_encrypt(bytes_: bytearray, key_word: str, custom_key_word: str = '', enc=True) -> bytearray: # keyword is chat_name
+def kappak_crypt(bytes_: bytearray, key_word: str, custom_key_word: str = '', enc=True) -> bytearray: # keyword is chat_name
     crypted_bytes = bytearray()
 
     for i, b in enumerate(bytes_): # index, byte

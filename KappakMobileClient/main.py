@@ -68,6 +68,9 @@ class Kappak(MDApp):
         if not Global.user.client_is_connected:
             Global.user.try_to_connect()
 
+            if Global.user.client_is_connected:
+                self.send_update_messages_req()
+
             return
         
         self.handle_reply()

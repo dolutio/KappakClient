@@ -29,7 +29,7 @@ class Kappak(MDApp):
         self.chats_feed_screen = ChatsFeedScreen()
 
         Window.bind(on_keyboard=self.on_key_down)
-        Thread(target=self.socket_process, daemon=True)
+        Thread(target=self.socket_loop, daemon=True)
 
     def build(self):
         self.screen_manager.add_widget(self.login_screen)
@@ -59,6 +59,10 @@ class Kappak(MDApp):
 
         Global.save_user_data()
         Global.save_chats_data()
+
+    def socket_loop(self):
+        while True:
+            self.socket_process()
 
     def socket_process(self):
         if not Global.user.client_is_connected:

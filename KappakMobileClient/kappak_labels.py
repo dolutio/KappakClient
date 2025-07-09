@@ -33,18 +33,19 @@ class MessageTimeLabel(KappakLabel):
         self.font_size = dp(15)
 
         Window.bind(size=self.set_pos_hint_for_phones)
+        self.set_pos_hint_for_phones(None, Window.size)
 
     def set_pos_hint_for_phones(self, instance, size):
-        if size[0] <= 320:
+        if size[0] <= dp(320):
             self.pos_hint['x'] = 0.3
         
-        elif 320 < size[0] <= 335:
+        elif size[0] <= dp(335):
             self.pos_hint['x'] = 0.45
 
-        elif 335 < size[0] <= 521:
+        elif size[0] <= dp(521):
             self.pos_hint['x'] = 0.6
         
-        elif 521 < size[0] <= 578:
+        elif size[0] <= dp(578):
             self.pos_hint['x'] = 0.7
         
         else:

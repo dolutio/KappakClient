@@ -29,7 +29,6 @@ class User:
 
 
         self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.try_to_connect()
     
     def get_user_data(self):
         user_data = {

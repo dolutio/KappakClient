@@ -59,7 +59,7 @@ class SignUpScreen(MDScreen):
         
     def signup(self, button):
         self.saved_username = self.signup_username_input_box.text + '_'
-        Global.user.send_req(f's {self.saved_username} {kappak_hash(self.signup_password_input_box.text)}')
+        Global.user.send_req(f'signup {self.saved_username} {kappak_hash(self.signup_password_input_box.text)}')
 
     def account_is_already_notify(self):
         self.signup_username_input_box.error_notify("Account is already exist")

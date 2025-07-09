@@ -1,6 +1,7 @@
 {
     "MAIN_CHAT": {
         "last_received_msg_id": "martun_9",
+        "custom_key": "asskfjsl",
         "martun_1": {
             "text": "HEllow",
             "sending_time": "16:11:43:0"
@@ -28,6 +29,7 @@
     },
     "SCHAT": {
         "last_received_msg_id": "",
+        "custom_key": "",
         "martun_1": {
             "text": "H",
             "sending_time": "01:07:2025:15:03"
@@ -35,6 +37,7 @@
     },
     "SCHAT1": {
         "last_received_msg_id": "",
+        "custom_key": "",
         "martun_1": {
             "text": "H",
             "sending_time": "01:07:2025:15:03"

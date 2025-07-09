@@ -30,7 +30,7 @@ def send_message():
         Global.chats_data[Global.current_chat_name].update(msg_json[Global.current_chat_name])
 
         msg_json_req = msg_json.copy() # for dont change the local msg_json
-        msg_json_req[Global.current_chat_name][msg_id]['text'] = kappak_crypt(msg_text, Global.current_chat_name).hex()
+        msg_json_req[Global.current_chat_name][msg_id]['text'] = kappak_crypt(msg_text.encode(), Global.current_chat_name, custom_key_word=Global.chats_data[Global.current_chat_name]["custom_key"]).hex()
         Global.user.send_req("m " + json.dumps(msg_json_req))
 
         Global.user.the_last_sended_message_id += 1
@@ -44,7 +44,7 @@ def add_message_in_chats_data(msg_json_s):
     chat_name = next(iter(msg_json))
     msg_id = next(iter(msg_json[chat_name]))
 
-    msg_json[chat_name][msg_id]['text'] = kappak_crypt(bytearray.fromhex(msg_json[chat_name][msg_id]['text']), msg_json[chat_name] + msg_json[chat_name][msg_id], enc=False).decode() # decrypt
+    msg_json[chat_name][msg_id]['text'] = kappak_crypt(bytearray.fromhex(msg_json[chat_name][msg_id]['text']), msg_json[chat_name] + msg_json[chat_name][msg_id], custom_key_word=Global.chats_data[Global.current_chat_name]["custom_key"], enc=False).decode() # decrypt
 
     Global.chats_data.update(msg_json)
 

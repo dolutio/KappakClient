@@ -27,9 +27,21 @@ def load_user_data():
     
     except FileNotFoundError:
         return None
+
+def load_chats_data():
+    try:
+        with open('chats.json', 'r') as chats_file:
+            data = json.load(chats_file)
+
+    except FileNotFoundError:
+        data = dict()
+    
+    return data
     
 user_data = load_user_data()
 user: User
+
+chats_data = load_chats_data()
 
 if user_data is not None:
     user = User(*user_data)
@@ -42,11 +54,9 @@ messages_show_place_widget = KappakNullable()
 message_input_box = KappakNullable()
 message_send_button = KappakNullable()
 
-chats_data = KappakNullable()
 current_chat_name = KappakNullable()
 
-with open('chats.json', 'r') as chats_file:
-    chats_data = json.load(chats_file)
+
 
 def save_user_data():
     if user.signed_up:
@@ -56,4 +66,5 @@ def save_user_data():
 
 def save_chats_data():
     with open('chats.json', 'w') as file:
-        json.dump(chats_data, file, indent=4)
+        if chats_data:
+            json.dump(chats_data, file, indent=4)

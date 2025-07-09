@@ -66,7 +66,7 @@ class LogInScreen(MDScreen):
         # self.manager.current = "ChatScreen"
         
     def login(self):
-        Global.user.send_req(f'l {self.login_username_input_box.text} {kappak_hash(self.login_password_input_box.text)}')
+        Global.user.send_req(f'login {self.login_username_input_box.text} {kappak_hash(self.login_password_input_box.text)}')
 
     def account_not_found_notify(self):
         self.login_username_input_box.error_notify("Account not found")

@@ -28,7 +28,7 @@ class Kappak(MDApp):
         self.login_screen = LogInScreen()
         self.chats_feed_screen = ChatsFeedScreen()
 
-        Window.bind(on_keyboard=self.on_key_down)
+        Window.bind(on_key_down=self.on_key_down)
         Thread(target=self.socket_loop, daemon=True)
 
     def build(self):
@@ -39,10 +39,10 @@ class Kappak(MDApp):
 
         return self.screen_manager
 
-    def on_key_down(self, win, key, *b):
+    def on_key_down(self, win, key, scancode, codepoint, modifiers):
         if key == 27:
-            # if self.screen_manager.current not in ["SignUpScreen", "LogInScreen"]:
-                # self.screen_manager.current = "ChatsFeed"
+            if self.screen_manager.current not in ["SignUpScreen", "LogInScreen"]:
+                self.screen_manager.current = "ChatsFeed"
             
             return True
         
@@ -105,7 +105,7 @@ class Kappak(MDApp):
         for chat_name, chat in Global.chats_data.items():
             req_dict.update({chat_name, chat['last_received_msg_id']})
 
-        Global.user.send_req(f'u {json.dumps(req_dict)}')         
+        Global.user.send_req(f'update {json.dumps(req_dict)}')         
     
     def update_msgs(self):
         chats_json = {"MAIN_CHAT":{"last_received_msg_id": "supermarchok1", "supermarchok1": {"text": "Hellow!", "sending_time": "01:07:2025:15:11"}}}

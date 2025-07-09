@@ -19,7 +19,7 @@ def kappak_hash(word: str):
     for indx, ch in enumerate(word):
         word = word[:indx] + chr((ord(ch) + (indx + 1) * 1000) % UNICODE_MAX_VALUE) + word[indx+1:]
     
-    return hashlib.sha256(word.encode())
+    return hashlib.sha256(word.encode()).hexdigest()
 
 def kappak_crypt(bytes_: bytearray, key_word: str, custom_key_word: str = '', enc=True) -> bytearray: # keyword is chat_name
     crypted_bytes = bytearray()

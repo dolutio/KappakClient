@@ -64,7 +64,6 @@ class Kappak(MDApp):
 
     def socket_process(self):
         while True:
-            print("Process")
             if not Global.user.client_is_connected:
                 Global.user.try_to_connect()
 
@@ -75,7 +74,7 @@ class Kappak(MDApp):
                 self.handle_reply()
         
     def handle_reply(self):
-        reply = Global.user.decode_reply()
+        reply = Global.user.decode_reply();print("reply", reply, '\n'*10)
 
         if type(reply) is int:
             self.handle_num_codes(reply)
@@ -90,6 +89,8 @@ class Kappak(MDApp):
 
             if reply == ACCEPT:
                 self.screen_manager.get_screen('SignUpScreen').save_account_data()
+                self.screen_manager.current = 'ChatsFeed'
+                print("Accepted")
 
         if self.screen_manager.current == 'LogInScreen':
             if reply == ACCOUNT_NOT_FOUND:
@@ -100,6 +101,7 @@ class Kappak(MDApp):
 
             if reply == ACCEPT:
                 self.screen_manager.get_screen('LogInScreen').save_account_data()
+                self.screen_manager.current = 'ChatsFeed'
         
         if reply == CLOSE_CODE:
             Global.user.close_client()

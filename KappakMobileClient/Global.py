@@ -23,7 +23,7 @@ def load_user_data():
         with open('user_data.json', 'r') as file:
             data = json.load(file)
 
-            return data['username'], data['age'], data["the_last_sended_message_id"], data["need_to_filter_censoreship"]
+            return data['username'], data['pwd_hash'], data['age'], data["the_last_sended_message_id"], data["need_to_filter_censoreship"]
     
     except FileNotFoundError:
         return None

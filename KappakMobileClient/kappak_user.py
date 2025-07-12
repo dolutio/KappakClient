@@ -2,11 +2,14 @@ import socket
 import threading
 import struct
 
+from kappak_crypt import kappak_hash
+
 HOST = '192.168.1.8'
 PORT = 8080
 
 class User:
     username: str = ''
+    pwd_hash: str = ''
     __age: int = 0
     adulthood_in_USA: int = 21
     the_last_sended_message_id: int = 0
@@ -16,8 +19,9 @@ class User:
     client_is_connected: bool = False
     not_sended_requests: list = list()
 
-    def __init__(self, name: str = '', age: int = 0, the_last_sended_message_id: int = 0, need_to_filter_censoreship=True):
+    def __init__(self, name: str = '', pwd_hash: str = '', age: int = 0, the_last_sended_message_id: int = 0, need_to_filter_censoreship=True):
         self.username = name
+        self.pwd_hash = pwd_hash
         self.__age = age
         self.the_last_sended_message_id = the_last_sended_message_id
 
@@ -34,6 +38,7 @@ class User:
     def get_user_data(self):
         user_data = {
             'username': self.username,
+            'pwd_hash': self.pwd_hash,
             'age': self.__age,
             'the_last_sended_message_id': self.the_last_sended_message_id,
             'need_to_filter_censoreship': self.need_to_filter_censoreship
@@ -48,6 +53,9 @@ class User:
 
             self.client.connect((HOST, PORT))
             self.client_is_connected = True
+
+            if self.username and self.pwd_hash:
+                self.login()
         
         except OSError:
             self.client_is_connected = False # Server do not found
@@ -116,6 +124,14 @@ class User:
             return int.from_bytes(reply, 'big')
         
         return 0 # Undefined reply
+    
+    def login(self, username: str = '', password: str = ''):
+        if username and password:
+            self.send_req(f'login {username} {kappak_hash(password)}')
+
+            return
+        
+        self.send_req(f'login {self.username} {self.pwd_hash}')
     
     def close_client(self):
         self.client.close()

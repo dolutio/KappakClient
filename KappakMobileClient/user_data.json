@@ -1,6 +1,7 @@
 {
     "username": "martun_",
-    "age": 10,
-    "the_last_sended_message_id": 95,
+    "pwd_hash": 0,
+    "age": 0,
+    "the_last_sended_message_id": 2,
     "need_to_filter_censoreship": true
 }

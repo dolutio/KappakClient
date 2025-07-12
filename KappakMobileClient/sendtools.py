@@ -10,6 +10,7 @@ from kappak_crypt import kappak_crypt
 
 import time
 import json
+import copy
 
 def get_message_name() -> str:
     i += 1
@@ -29,9 +30,12 @@ def send_message():
 
         Global.chats_data[Global.current_chat_name].update(msg_json[Global.current_chat_name])
 
-        msg_json_req = msg_json.copy() # for dont change the local msg_json
-        msg_json_req[Global.current_chat_name][msg_id]['text'] = kappak_crypt(msg_text.encode(), Global.current_chat_name, custom_key_word=Global.chats_data[Global.current_chat_name]["custom_key"]).hex()
-        Global.user.send_req("m " + json.dumps(msg_json_req))
+        msg_json_req = copy.deepcopy(msg_json) # for dont change the local msg_json
+        msg_json_req[Global.current_chat_name][msg_id]['text'] = kappak_crypt(msg_text.encode(), Global.current_chat_name + msg_id, custom_key_word=Global.chats_data[Global.current_chat_name]["custom_key"]).hex()
+        
+        print(msg_json_req, msg_json)
+
+        Global.user.send_req("message " + json.dumps(msg_json_req))
 
         Global.user.the_last_sended_message_id += 1
         Global.message_input_box.text = ''
@@ -39,14 +43,19 @@ def send_message():
     else:print(Global.message_input_box)
 
 def add_message_in_chats_data(msg_json_s):
+    print(repr(msg_json_s), type(msg_json_s), "\n"*100)
     msg_json = json.loads(msg_json_s)
 
     chat_name = next(iter(msg_json))
     msg_id = next(iter(msg_json[chat_name]))
 
-    msg_json[chat_name][msg_id]['text'] = kappak_crypt(bytearray.fromhex(msg_json[chat_name][msg_id]['text']), msg_json[chat_name] + msg_json[chat_name][msg_id], custom_key_word=Global.chats_data[Global.current_chat_name]["custom_key"], enc=False).decode() # decrypt
+    msg_json[chat_name][msg_id]['text'] = kappak_crypt(bytearray.fromhex(msg_json[chat_name][msg_id]['text']), chat_name + msg_id, custom_key_word=Global.chats_data[Global.current_chat_name]["custom_key"], enc=False).decode() # decrypt
 
-    Global.chats_data.update(msg_json)
+    print('\n'* 10, 'TEst', Global.chats_data,)
+    Global.chats_data[chat_name].update(msg_json[chat_name]) # if do without chat_name, the data is rewriting
+    print(Global.chats_data, "\n"*10)
+
+    return msg_id
 
 class MessageInputBox(TextInput):
     def __init__(self, **kwargs):

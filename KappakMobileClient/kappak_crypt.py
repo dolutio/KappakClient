@@ -29,6 +29,6 @@ def kappak_crypt(bytes_: bytearray, key_word: str, custom_key_word: str = '', en
         step = ord(key_word[i % key_word_len]) + gen_custom_key(custom_key_word)
         if not enc:
             step = -step
-        crypted_bytes.append(((b + step) % 257 + 257) % 257)
+        crypted_bytes.append(((b + step) % 256 + 256) % 256)
 
     return crypted_bytes

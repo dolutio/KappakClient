@@ -29,6 +29,7 @@ class User:
 
 
         self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.client.settimeout(5)
     
     def get_user_data(self):
         user_data = {
@@ -42,6 +43,9 @@ class User:
     
     def try_to_connect(self):
         try:
+            if self.client.fileno() == -1: # Socket closed
+                self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
             self.client.connect((HOST, PORT))
             self.client_is_connected = True
         
@@ -49,6 +53,7 @@ class User:
             self.client_is_connected = False # Server do not found
     
     def send_req(self, request: str):
+        print("req:", self.client_is_connected)
         if self.client and self.client_is_connected:
             try:
                 for not_sended_request in self.not_sended_requests:
@@ -66,28 +71,43 @@ class User:
         data = b''
 
         while (len(data) < expected_len):
-            part = self.client.recv(expected_len - len(data))
 
-            if not part:
-                print("Вы не в сети")
-                return
+            try:
+                part = self.client.recv(expected_len - len(data))
 
-            data += part
+                print("Socket Timeout")
 
-            return data
+                if not part: # if part == b'' server closed connection
+                    print("Вы не в сети")
+                    self.client_is_connected = False
+            
+                    return None
+
+                data += part
+
+                return data
+            
+            except socket.timeout: # Server just not send the datas
+                ...
+
 
     def recv_reply(self):
         if self.client:
-            reply_type = int.from_bytes(self.recv_all(1)[0])
-            reply_len = int.from_bytes(self.recv_all(2), 'big')
-            reply = self.recv_all(reply_len)
+            reply_type_recv = self.recv_all(1)
+            if reply_type_recv:
+                reply_type = reply_type_recv[0]
+                reply_len = int.from_bytes(self.recv_all(2), 'big')
+                reply = self.recv_all(reply_len)
 
-            return reply_type, reply
+                return reply_type, reply
         
-        return None
+        return None, None
     
     def decode_reply(self):
         reply_type, reply = self.recv_reply()
+
+        if reply_type is None:
+            return 0
 
         if reply_type == 0x01: # String
             return reply.decode()
@@ -96,6 +116,10 @@ class User:
             return int.from_bytes(reply, 'big')
         
         return 0 # Undefined reply
+    
+    def close_client(self):
+        self.client.close()
+        self.client_is_connected = False
 
     def serializate(self):
         username_length = len(self.username)

@@ -1,14 +1,10 @@
 {
     "MAIN_CHAT": {
-        "last_received_msg_id": "martun_9",
-        "custom_key": "asskfjsl",
-        "martun_1": {
-            "text": "HEllow",
-            "sending_time": "16:11:43:0"
-        }
-        "martun_4": {
-            "text": "\ud83d\ude01",
-            "sending_time": "04:07:2025:07:14"
+        "last_received_msg_id": "",
+        "custom_key": "",
+        "martun_94": {
+            "text": "Hello",
+            "sending_time": "12:07:2025:04:21"
         }
     },
     "SCHAT": {

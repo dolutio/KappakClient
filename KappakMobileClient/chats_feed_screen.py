@@ -41,6 +41,7 @@ class ChatsFeedScreen(MDScreen):
     
     def build_chat_buttons(self):
         index = 0
+        print("LH", Global.chats_data.keys(), "\n"*10)
         for chat_name in Global.chats_data.keys():
             self.create_chat_button(chat_name, index)
             index += 1

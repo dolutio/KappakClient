@@ -1,0 +1,34 @@
+{
+    "MAIN_CHAT": {
+        "last_received_msg_id": "",
+        "custom_key": "",
+        "martun_94": {
+            "text": "Hello",
+            "sending_time": "12:07:2025:04:21"
+        },
+        "martun_True": {
+            "text": ",,",
+            "sending_time": "14:07:2025:07:01"
+        },
+        "martun_2": {
+            "text": "kkk",
+            "sending_time": "14:07:2025:07:04"
+        }
+    },
+    "SCHAT": {
+        "last_received_msg_id": "",
+        "custom_key": "",
+        "martun_1": {
+            "text": "H",
+            "sending_time": "01:07:2025:15:03"
+        }
+    },
+    "SCHAT1": {
+        "last_received_msg_id": "",
+        "custom_key": "",
+        "martun_1": {
+            "text": "H",
+            "sending_time": "01:07:2025:15:03"
+        }
+    }
+}

@@ -33,8 +33,6 @@ def send_message():
         msg_json_req = copy.deepcopy(msg_json) # for dont change the local msg_json
         msg_json_req[Global.current_chat_name][msg_id]['text'] = kappak_crypt(msg_text.encode(), Global.current_chat_name + msg_id, custom_key_word=Global.chats_data[Global.current_chat_name]["custom_key"]).hex()
         
-        print(msg_json_req, msg_json)
-
         Global.user.send_req("message " + json.dumps(msg_json_req))
 
         Global.user.the_last_sended_message_id += 1

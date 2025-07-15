@@ -41,10 +41,11 @@ def load_chats_data():
 user_data = load_user_data()
 user: User
 
-chats_data = load_chats_data();print("ChData:", chats_data)
+chats_data = load_chats_data()
 
 if user_data is not None:
     user = User(*user_data)
+    print("User, ", user_data, user.pwd_hash, '\n\n\n\n')
 
 else:
     user = User()

@@ -31,7 +31,8 @@ class Kappak(MDApp):
         self.chats_feed_screen = ChatsFeedScreen()
 
         Window.bind(on_key_down=self.on_key_down)
-        Thread(target=self.socket_process, daemon=True).start()
+        Thread(target=self.make_connection, daemon=True).start()
+        Thread(target=self.handle_reply, daemon=True).start()
 
     def build(self):
         self.screen_manager.add_widget(self.login_screen)
@@ -62,25 +63,25 @@ class Kappak(MDApp):
         Global.save_user_data()
         Global.save_chats_data()
 
-    def socket_process(self):
+    def make_connection(self):
         while True:
             if not Global.user.client_is_connected:
                 Global.user.try_to_connect()
 
                 if Global.user.client_is_connected:
                     self.send_update_messages_req()
-            
-            else:
-                self.handle_reply()
+    
         
     def handle_reply(self):
-        reply = Global.user.decode_reply();print("reply", reply, '\n'*10)
+        while True:
+            print("handelreply")
+            reply = Global.user.decode_reply()
 
-        if type(reply) is int:
-            self.handle_num_codes(reply)
+            if type(reply) is int:
+                Clock.schedule_once(lambda dt: self.handle_num_codes(reply)) # handle_num_codes works with kivy widgets
 
-        if type(reply) is str:
-            self.update_msgs(reply)
+            if type(reply) is str:
+                self.update_msgs(reply)
 
     def handle_num_codes(self, reply: int):
         if self.screen_manager.current == 'SignUpScreen':
@@ -113,7 +114,9 @@ class Kappak(MDApp):
             print(chat)
             req_dict.update({chat_name: chat['last_received_msg_id']})
 
-        Global.user.send_req(f'update {json.dumps(req_dict)}')         
+        if Global.user.authed:
+            print("lll")
+            Global.user.send_req(f'update {json.dumps(req_dict)}')         
     
     def update_msgs(self, chats_json_s: str):
         msg_id = add_message_in_chats_data(chats_json_s)

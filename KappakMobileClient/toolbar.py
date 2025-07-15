@@ -62,7 +62,8 @@ class ChatSideBar(MDNavigationDrawer):
         Global.chats_data[Global.current_chat_name]["custom_key"] = self.custom_key_input_box.text
     
     def add_member(self, button):
-        Global.user.send_req(f'addm {self.add_member_input_box.text}_ {Global.current_chat_name}')
+        if Global.user.authed:
+            Global.user.send_req(f'addm {self.add_member_input_box.text}_ {Global.current_chat_name}')
 
 class SendBar(MDFloatLayout):
     def __init__(self, *args, **kwargs):

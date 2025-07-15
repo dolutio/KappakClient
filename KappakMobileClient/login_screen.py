@@ -55,11 +55,12 @@ class LogInScreen(MDScreen):
 
         if user_data is not None:
             name = user_data['username']
+            pwd_hash = user_data['pwd_hash']
             age = user_data['age']
             need_to_filter_censoreship = user_data['need_to_filter_censoreship']
             the_last_sended_message_id  = user_data['the_last_sended_message_id']
     
-            Global.user = User(name, age, the_last_sended_message_id, need_to_filter_censoreship)
+            Global.user = User(name, pwd_hash, age, the_last_sended_message_id, need_to_filter_censoreship)
 
         else:
             Global.user = User()

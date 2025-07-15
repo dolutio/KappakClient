@@ -2,6 +2,7 @@ import socket
 import threading
 import struct
 
+from kappak_config import ACCEPT, CLOSE_CODE
 from kappak_crypt import kappak_hash
 
 HOST = '192.168.1.8'
@@ -15,13 +16,14 @@ class User:
     the_last_sended_message_id: int = 0
     need_to_filter_censoreship: bool = True
     signed_up: bool = False
+    authed: bool = False
     client: socket.socket
     client_is_connected: bool = False
     not_sended_requests: list = list()
 
     def __init__(self, name: str = '', pwd_hash: str = '', age: int = 0, the_last_sended_message_id: int = 0, need_to_filter_censoreship=True):
         self.username = name
-        self.pwd_hash = pwd_hash
+        self.pwd_hash = pwd_hash;print("IP", self.pwd_hash, "\n"*10)
         self.__age = age
         self.the_last_sended_message_id = the_last_sended_message_id
 
@@ -33,7 +35,7 @@ class User:
 
 
         self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.client.settimeout(5)
+        # self.client.settimeout(5)
     
     def get_user_data(self):
         user_data = {
@@ -54,8 +56,11 @@ class User:
             self.client.connect((HOST, PORT))
             self.client_is_connected = True
 
-            if self.username and self.pwd_hash:
+            if self.username != '' and self.pwd_hash != '' and not self.authed:
                 self.login()
+                # login_reply = self.decode_reply()
+                # if login_reply == ACCEPT:
+                self.authed = True
         
         except OSError:
             self.client_is_connected = False # Server do not found
@@ -76,36 +81,35 @@ class User:
             self.not_sended_requests.append(request)
 
     def recv_all(self, expected_len):
-        data = b''
+        data = b'';print("Expected len:", expected_len)
+
+        if not self.client_is_connected or expected_len == 0:
+            return data
 
         while (len(data) < expected_len):
+            part = self.client.recv(expected_len - len(data))
 
-            try:
-                part = self.client.recv(expected_len - len(data))
-
-                print("Socket Timeout")
-
-                if not part: # if part == b'' server closed connection
-                    print("Вы не в сети")
-                    self.client_is_connected = False
+            if not part: # if part == b'' server closed connection
+                print("Вы не в сети")
+                self.client_is_connected = False
             
-                    return None
+                return CLOSE_CODE
 
-                data += part
+            data += part
 
-                return data
-            
-            except socket.timeout: # Server just not send the datas
-                ...
-
+        print("recv: ", data)
+        return data
 
     def recv_reply(self):
         if self.client:
             reply_type_recv = self.recv_all(1)
             if reply_type_recv:
                 reply_type = reply_type_recv[0]
-                reply_len = int.from_bytes(self.recv_all(2), 'big')
+                reply_len_size = 4
+                print(reply_type)
+                reply_len = int.from_bytes(self.recv_all(reply_len_size), 'big')
                 reply = self.recv_all(reply_len)
+                
 
                 return reply_type, reply
         
@@ -131,7 +135,7 @@ class User:
 
             return
         
-        self.send_req(f'login {self.username} {self.pwd_hash}')
+        self.send_req(f'login {self.username} {self.pwd_hash}');print("Logedin", self.pwd_hash)
     
     def close_client(self):
         self.client.close()

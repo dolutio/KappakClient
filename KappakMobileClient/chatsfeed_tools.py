@@ -28,4 +28,4 @@ class ChatsFeedButton(MDRectangleFlatIconButton):
     def __init__(self, step, **kwargs):
         super().__init__(**kwargs)
         self.size_hint = (1, 0.7)
-        self.pos = (0, self.height - step * self.size_hint[1])
+        self.pos = (0, dp(self.height - step * self.size_hint[1]))

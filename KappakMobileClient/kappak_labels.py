@@ -22,6 +22,17 @@ class MessageLabel(KappakLabel):
         self.font_size = dp(17)
         self.texture_update()
 
+class MessageUsernameLabel(KappakLabel):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.size_hint = (0.5, 0.1)
+        self.pos_hint = {'x': 0, 'y': 0}
+        self.padding = dp(10), dp(30), dp(20), dp(20)
+        self.font_size = dp(15)
+        self.color = (0, 1, 0, 1)
+
+        # Window
+
 class MessageTimeLabel(KappakLabel):
     
     def __init__(self, **kwargs):
@@ -29,7 +40,7 @@ class MessageTimeLabel(KappakLabel):
 
         self.size_hint = (0.5, 0.1)
         self.pos_hint = {'x': 0.75, 'y': 0}
-        self.padding = return_values(dp(10), 2)
+        self.padding = dp(10)
         self.font_size = dp(15)
 
         Window.bind(size=self.set_pos_hint_for_phones)

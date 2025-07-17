@@ -8,8 +8,11 @@ from kivymd.uix.widget import MDAdaptiveWidget
 from kivy.core.window import Window
 from kivy.metrics import dp
 
-from kappak_labels import MessageLabel, MessageTimeLabel
+from kappak_labels import MessageLabel, MessageUsernameLabel, MessageTimeLabel
 from kappak_general_functions import return_values, adaptive_size
+from kappak_config import OWN_MESSAGE, OTHER_MESSAGE
+
+censorship_dict = {'Kill': 'K!ll', 'kill': 'k!ll', 'Die': 'D!e', 'die': 'd!e', 'Hate': 'H@te', 'hate': 'h@te', 'Stupid': 'Stup!d', 'stupid': 'stup!d'}
 
 class Message:
     text: str
@@ -61,12 +64,27 @@ class MessageWidget(MDCard):
         self.set_message_time()
     
     def define_message_type(self): #Own message or Someone else's message
-        if Global.user.username not in self.message.message_id: 
+        if Global.user.username not in self.message.message_id:
             self.md_bg_color = self.OTHERS_MESSAGE_COLOR #00c5c3 #2079df #4a5ce9 #8620df
             self.pos_hint = {'x': 0.05, 'y': 1}
+
+            self.set_message_username()
+
+    def censore(self, text: str):
+        for word in censorship_dict:
+            if word in text:
+                text = text.replace(word, censorship_dict[word])
+
+        return text
+    
+    def set_message_username(self):
+        self.username_label = MessageUsernameLabel(text='_'.join(self.message.message_id.split('_')[:-1]))
+
+        self.add_widget(self.username_label)
     
     def set_message_text(self):
-        self.message_label = MessageLabel(text=self.message.text)
+        self.message_label = MessageLabel()
+        self.message_label.text = self.censore(self.message.text)
 
         self.message_label.bind(texture_size=lambda instance, value: setattr(instance, 'height', value[1]))
         self.message_label.bind(texture_size=lambda instance, value: setattr(self, 'height', value[1] + adaptive_size(30)))

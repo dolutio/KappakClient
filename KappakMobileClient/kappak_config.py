@@ -1,6 +1,9 @@
 window_width = 800
 window_height = 600
 
+OWN_MESSAGE = 0
+OTHER_MESSAGE = 1
+
 ACCEPT = 0
 ACCOUNT_ALREADY_EXIST = 1
 ACCOUNT_NOT_FOUND = 2

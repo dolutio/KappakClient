@@ -2,129 +2,45 @@
     "MAIN_CHAT": {
         "last_received_msg_id": "",
         "custom_key": "",
-        "martun_1": {
-            "text": "Hello",
-            "sending_time": "12:07:2025:04:21"
+        "mart_40": {
+            "text": "Hi!!!",
+            "sending_time": "15:07:2025:10:40"
         },
-        "martun_10": {
-            "text": "mmm",
-            "sending_time": "14:07:2025:11:12"
+        "martun_42": {
+            "text": "Heelo!",
+            "sending_time": "15:07:2025:06:41"
         },
-        "martun_11": {
-            "text": "LLLL",
-            "sending_time": "14:07:2025:15:09"
+        "martun_43": {
+            "text": "How Are You?",
+            "sending_time": "15:07:2025:06:41"
         },
-        "martun_12": {
-            "text": "LLLLIOJ",
-            "sending_time": "14:07:2025:15:09"
+        "mart_41": {
+            "text": "wooow\n",
+            "sending_time": "15:07:2025:10:41"
         },
-        "martun_13": {
-            "text": "lll",
-            "sending_time": "14:07:2025:15:11"
+        "mart_42": {
+            "text": "fin",
+            "sending_time": "15:07:2025:10:42"
         },
-        "martun_14": {
-            "text": "jjjj",
-            "sending_time": "14:07:2025:15:12"
+        "martun_44": {
+            "text": "kill",
+            "sending_time": "15:07:2025:12:39"
         },
-        "martun_15": {
-            "text": "LLL",
-            "sending_time": "14:07:2025:15:14"
+        "martun_45": {
+            "text": "die please",
+            "sending_time": "15:07:2025:12:51"
         },
-        "martun_16": {
-            "text": "lalla",
-            "sending_time": "14:07:2025:15:14"
+        "martun_46": {
+            "text": "die",
+            "sending_time": "15:07:2025:12:51"
         },
-        "martun_17": {
-            "text": "aaaa",
-            "sending_time": "14:07:2025:15:19"
+        "martun_47": {
+            "text": "he Died",
+            "sending_time": "15:07:2025:13:04"
         },
-        "martun_18": {
-            "text": "Hello!",
-            "sending_time": "14:07:2025:15:20"
-        },
-        "martun_19": {
-            "text": "LLL",
-            "sending_time": "14:07:2025:15:22"
-        },
-        "martun_20": {
-            "text": "LL",
-            "sending_time": "14:07:2025:15:23"
-        },
-        "martun_21": {
-            "text": "KK",
-            "sending_time": "15:07:2025:05:45"
-        },
-        "martun_22": {
-            "text": "kkk",
-            "sending_time": "15:07:2025:05:45"
-        },
-        "martun_23": {
-            "text": "OO",
-            "sending_time": "15:07:2025:05:46"
-        },
-        "martun_24": {
-            "text": "K",
-            "sending_time": "15:07:2025:05:47"
-        },
-        "martun_25": {
-            "text": "\nLL",
-            "sending_time": "15:07:2025:05:56"
-        },
-        "martun_26": {
-            "text": "Whaaaat?",
-            "sending_time": "15:07:2025:05:58"
-        },
-        "martun_27": {
-            "text": ">>>",
-            "sending_time": "15:07:2025:06:00"
-        },
-        "martun_28": {
-            "text": "??!!",
-            "sending_time": "15:07:2025:06:01"
-        },
-        "martun_29": {
-            "text": "<<<",
-            "sending_time": "15:07:2025:06:02"
-        },
-        "martun_30": {
-            "text": "WoW",
-            "sending_time": "15:07:2025:06:02"
-        },
-        "martun_31": {
-            "text": "olkk",
-            "sending_time": "15:07:2025:06:03"
-        },
-        "martun_32": {
-            "text": "LLL",
-            "sending_time": "15:07:2025:06:06"
-        },
-        "martun_33": {
-            "text": "OKak",
-            "sending_time": "15:07:2025:06:06"
-        },
-        "martun_34": {
-            "text": "VotKak",
-            "sending_time": "15:07:2025:06:07"
-        },
-        "martun_35": {
-            "text": "lll",
-            "sending_time": "15:07:2025:06:10"
-        },
-        "martun_36": {
-            "text": "??",
-            "sending_time": "15:07:2025:06:11"
-        },
-        "martun_37": {
-            "text": "!",
-            "sending_time": "15:07:2025:06:11"
-        },
-        "martun_38": {
-            "text": "lll",
-            "sending_time": "15:07:2025:06:13"
-        },
-        "martun_39": {
-            "text": "AAA",
-            "sending_time": "15:07:2025:06:18"
+        "martun_48": {
+            "text": "Do you hate me?\n",
+            "sending_time": "15:07:2025:13:04"
         }
     },
     "SCHAT": {

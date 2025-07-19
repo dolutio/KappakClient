@@ -74,7 +74,6 @@ class Kappak(MDApp):
         
     def handle_reply(self):
         while True:
-            print("handelreply")
             reply = Global.user.decode_reply()
 
             if type(reply) is int:

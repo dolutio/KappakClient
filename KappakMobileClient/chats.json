@@ -1,46 +1,22 @@
 {
     "MAIN_CHAT": {
         "last_received_msg_id": "",
-        "custom_key": "",
-        "mart_40": {
-            "text": "Hi!!!",
-            "sending_time": "15:07:2025:10:40"
+        "custom_key": "jlkqwamyp",
+        "user2_2": {
+            "text": "Kill",
+            "sending_time": "19:07:2025:09:00"
         },
-        "martun_42": {
-            "text": "Heelo!",
-            "sending_time": "15:07:2025:06:41"
+        "user2_3": {
+            "text": "Died",
+            "sending_time": "19:07:2025:09:00"
         },
-        "martun_43": {
-            "text": "How Are You?",
-            "sending_time": "15:07:2025:06:41"
+        "user2_4": {
+            "text": "hate",
+            "sending_time": "19:07:2025:09:01"
         },
-        "mart_41": {
-            "text": "wooow\n",
-            "sending_time": "15:07:2025:10:41"
-        },
-        "mart_42": {
-            "text": "fin",
-            "sending_time": "15:07:2025:10:42"
-        },
-        "martun_44": {
-            "text": "kill",
-            "sending_time": "15:07:2025:12:39"
-        },
-        "martun_45": {
-            "text": "die please",
-            "sending_time": "15:07:2025:12:51"
-        },
-        "martun_46": {
-            "text": "die",
-            "sending_time": "15:07:2025:12:51"
-        },
-        "martun_47": {
-            "text": "he Died",
-            "sending_time": "15:07:2025:13:04"
-        },
-        "martun_48": {
-            "text": "Do you hate me?\n",
-            "sending_time": "15:07:2025:13:04"
+        "user2_5": {
+            "text": "Stupid",
+            "sending_time": "19:07:2025:09:03"
         }
     },
     "SCHAT": {

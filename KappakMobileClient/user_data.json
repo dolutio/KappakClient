@@ -1,7 +1,7 @@
 {
-    "username": "martun_",
+    "username": "user2_",
     "pwd_hash": "94918412f99140935d98ac0217c6281032a0d9b1acd0b136aa1d3ea458a2b10f",
-    "age": true,
-    "the_last_sended_message_id": 49,
+    "age": 12,
+    "the_last_sended_message_id": 6,
     "need_to_filter_censoreship": true
 }
